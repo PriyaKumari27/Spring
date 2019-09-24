@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+        
+         <bean id="emp" class="com.cg.springcore.service.Employee" init-method="callFirst"  destroy-method="callLast" autowire="byName">
+         
+         <property name="empName" value="ABCD"></property>
+         <constructor-arg name="empName" value="Capgemini"></constructor-arg>
+         <constructor-arg name="empId" value="5001"></constructor-arg>
+         <property name="deptId">
+         <set>
+         <ref bean= "dept"/>
+         <ref bean= "deptone"/>
+         <ref bean= "depttwo"/>
+         
+         </set>
+         
+         </property>
+       
+         </bean> 
+         
+         
+         <bean id="proone" class="com.cg.springcore.service.Project">
+         <property name="projId" value="1001"></property>
+         </bean>
+         
+         <bean id="protwo" class="com.cg.springcore.service.Project">
+         <property name="projId" value="1002"></property>
+         </bean>
+        
+         
+        
+         <bean id="projc" class="com.cg.springcore.service.Project">
+         <property name="projId" value="1003"></property>
+         </bean>
+         
+        <bean id="dept" class="com.cg.springcore.service.Department">
+        <property name="deptId" value="2001"></property>
+        </bean>
+         
+        <bean id="deptone" class="com.cg.springcore.service.Department">
+        <property name="deptId" value="2002"></property>
+        </bean>
+        
+         
+        <bean id="depttwo" class="com.cg.springcore.service.Department">
+        <property name="deptId" value="2003"></property>
+        </bean>
+        
+        
+        </beans>
+		
+		package com.cg.springcore.service;
+import com.cg.springcore.service.Project;
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.stereotype.Component;
+
+
+@Component
+public class Employee {
+	
+	private String empName;
+	private Project projc;
+	private Set<Department> deptId;
+	private int empId;
+	
+	public Employee() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	public Employee(String empName, int empId) {  //For constructor injection
+		super();
+		this.empName = empName;
+		this.empId=empId;
+	}
+
+
+	//private Department depId;
+	
+
+
+
+
+	/*public void setDepId(Department depId) {
+		this.depId = depId;
+	}*/
+
+	
+
+
+
+
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
+
+	
+
+
+	public void setProjc(Project projc) {
+		this.projc = projc;
+	}
+
+
+
+
+
+	public void setDeptId(Set<Department> deptId) {
+		this.deptId = deptId;
+	}
+
+
+
+	
+
+	public void getData()
+	{
+		//System.out.println("Hiiee Welcome....Spring Core..."+ this.empName + " "+projc.getProjId()+" " +depId.getDeptId() );
+		System.out.println("Hiiee Welcome....Spring Core..."+ this.empName);
+		System.out.println(this.empId);
+		
+			System.out.println(this.projc.getProjId());
+		
+		for(Department department:deptId) {
+			System.out.println(department.getDeptId());
+		}
+	}
+	
+	public void callFirst() {
+		System.out.println("In callFirst method");
+	}
+	
+	public void callLast() {
+		System.out.println("In callLast method");
+	}
+
+
+
+	/*public Department getDepId() {
+		return depId;
+	}*/
+
+}
